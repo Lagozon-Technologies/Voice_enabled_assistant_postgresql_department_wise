@@ -16,15 +16,27 @@ import matplotlib.pyplot as plt
 from lida import Manager, TextGenerationConfig, llm
 from prompts import get_system_prompt, generate_gpt_response, get_table_context
 import psycopg2
-import toml
+# import toml
 
 # Load secrets from TOML configuration
-config = toml.load('C:/Users/v-sujal.sethi/Downloads/lagozon assiatant_postersql/.streamlit/secrets.toml')
-sql_config = config['connections']['postgresql']
+# config = toml.load('C:/Users/v-sujal.sethi/Downloads/lagozon assiatant_postersql/.streamlit/secrets.toml')
+# sql_config = config['connections']['postgresql']
 
 # Construct the connection string for PostgreSQL
-connection_string = f"dbname={sql_config['database']} user={sql_config['user_id']} password={sql_config['password']} host={sql_config['server']} port={sql_config['port']} sslmode={sql_config['sslmode']}"
+# connection_string = f"dbname={sql_config['database']} user={sql_config['user_id']} password={sql_config['password']} host={sql_config['server']} port={sql_config['port']} sslmode={sql_config['sslmode']}"
+# Fetch database configuration from environment variables
+DBNAME = os.environ.get('DBNAME')
+DBUSER = os.environ.get('DBUSER')
+DBPASSWORD = os.environ.get('DBPASSWORD')
+DBHOST = os.environ.get('DBHOST')
+DBPORT = os.environ.get('DBPORT')
+SSL_MODE = os.environ.get('SSL_MODE', 'require')  # Default to 'require' if not specified
 
+# Construct the connection string for PostgreSQL
+connection_string = f"""
+dbname={DBNAME} user={DBUSER} password={DBPASSWORD} 
+host={DBHOST} port={DBPORT} sslmode={SSL_MODE}
+"""
 # Establish connection to PostgreSQL
 def get_sql_connection():
     return psycopg2.connect(connection_string)
