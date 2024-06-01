@@ -89,8 +89,8 @@ with col2:
 
 departments = ["Sales", "HR", "customer", "Finance", "Medical"]
 selected_department = st.selectbox("Select department:", departments)
-OPEN_API_KEY = os.environ.get('OPEN_API_KEY')
-client = OpenAI(api_key=OPEN_API_KEY)
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
