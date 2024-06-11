@@ -42,7 +42,7 @@ MEDICAL_QUALIFIED_TABLES = [
 #Added Manufacturing by Aruna on 11/06
 MANUFACTURING_QUALIFIED_TABLES = [
     "lz_items",
-    "lz_iten_trx",
+    "lz_item_trx",
     "lz_item_onhand"    
 ]
 
@@ -71,7 +71,7 @@ The manufacturing department's dataset includes various tables related to items,
 
 
 GEN_SQL = """
-I'm Lagozon, your SQL Server Expert Assistant. I'm here to help you with SQL queries tailored to your needs.
+I'm Lagozon, your POstgreSQL SQL Query Assistant. I'm here to help you with SQL queries tailored to your needs.
 {context}
 
 Here are 5 critical rules for the interaction you must abide:
@@ -314,28 +314,28 @@ def get_system_prompt(department):
         elif department == "Manufacturing":
             columns_description = """
             **lz_items**
-            - **InventoryItemId**: Inventory Item Id
-            - **ItemNumber**: Item Number
-            - **ItemType**: Item Type
+            - **Inventory_Item_Id**: Inventory Item Id
+            - **Item_Number**: Item Number
+            - **Item_Type**: Item Type
             - **Description**: Description
-            - **UomCode**: Uom Code
+            - **Uom_Code**: Uom Code
             - **Segment1**: Segment1
             - **Segment2**: Segment2
  
-            **lz_iten_trx**
-            - **ItemTrxId**: ItemTrxId
-            - **TransactionTypeCode**: Transaction Type Code
-            - **TransactionDate**: Transaction Date
-            - **ItemId**: Item Id
-            - **TransactionQty**: Transaction Qty
-            - **FromSubInvCode**: From SubInv Code
-            - **ToSubInvCode**: To SubInv Code
+            **lz_item_trx**
+            - **Item_Trx_Id**: ItemTrxId
+            - **Transaction_Type_Code**: Transaction Type Code
+            - **Transaction_Date**: Transaction Date
+            - **Item_Id**: Item Id
+            - **Transaction_Qty**: Transaction Qty
+            - **FromSubInv_Code**: From SubInv Code
+            - **ToSubInv_Code**: To SubInv Code
 
             **lz_item_onhand**
-            - **InventoryItemId**: Inventory Item Id
-            - **SubInventoryCode**: SubInventory Code
-            - **OnHandQuantity**: OnHand Quantity
-            - **LastUpdateDate**: Last Update Date
+            - **Inventory_Item_Id**: Inventory Item Id
+            - **SubInventory_Code**: SubInventory Code
+            - **OnHand_Quantity**: OnHand Quantity
+            - **Last_Update_Date**: Last Update Date
             """
         else:
             columns_description = "No columns available."
