@@ -29,6 +29,24 @@ HR_QUALIFIED_TABLE_NAME = "lz_employees"
 CUSTOMER_QUALIFIED_TABLE_NAME = "lz_customers"
 FINANCE_QUALIFIED_TABLES = ["lz_invoices", "lz_receipts"]
 
+# Medical tables
+MEDICAL_QUALIFIED_TABLES = [
+    "lz_radiology_reports",
+    "lz_radiology_exams",
+    "lz_nurses",
+    "lz_doctors",
+    "lz_patients",
+    "lz_departments"
+]
+
+#Added Manufacturing by Aruna on 11/06
+MANUFACTURING_QUALIFIED_TABLES = [
+    "lz_items",
+    "lz_iten_trx",
+    "lz_item_onhand"    
+]
+
+
 # Define table descriptions for different departments
 SALES_TABLE_DESCRIPTION = """
 The dataset contains sales data for various stores, including total sales, orders, and sales distribution across different channels.
@@ -46,15 +64,11 @@ MEDICAL_TABLE_DESCRIPTION = """
 The medical department's dataset includes various tables related to radiology reports, exams, doctors, nurses, patients, and departments.
 """
 
-# Medical tables
-MEDICAL_QUALIFIED_TABLES = [
-    "lz_radiology_reports",
-    "lz_radiology_exams",
-    "lz_nurses",
-    "lz_doctors",
-    "lz_patients",
-    "lz_departments"
-]
+#Added Manufacturing by Aruna on 11/06
+MANUFACTURING_TABLE_DESCRIPTION = """
+The manufacturing department's dataset includes various tables related to items, item transactions and item on-hand quantity.
+"""
+
 
 GEN_SQL = """
 I'm Lagozon, your SQL Server Expert Assistant. I'm here to help you with SQL queries tailored to your needs.
@@ -103,6 +117,9 @@ def get_table_context(department: str):
         return FINANCE_QUALIFIED_TABLES, FINANCE_TABLE_DESCRIPTION
     elif department == "Medical":
         return MEDICAL_QUALIFIED_TABLES, MEDICAL_TABLE_DESCRIPTION
+    #Added Manufacturing by Aruna on 11/06
+    elif department == "Manufacturing":
+        return MANUFACTURING_QUALIFIED_TABLES, MANUFACTURING_TABLE_DESCRIPTION
     else:
         return None, None
 
@@ -293,6 +310,33 @@ def get_system_prompt(department):
             - **ReportDate**: Report Date
             - **ReportText**: Report Text
             """
+        #Added Manufacturing by Aruna on 11/06
+        elif department == "Manufacturing":
+            columns_description = """
+            **lz_items**
+            - **InventoryItemId**: Inventory Item Id
+            - **ItemNumber**: Item Number
+            - **ItemType**: Item Type
+            - **Description**: Description
+            - **UomCode**: Uom Code
+            - **Segment1**: Segment1
+            - **Segment2**: Segment2
+ 
+            **lz_iten_trx**
+            - **ItemTrxId**: ItemTrxId
+            - **TransactionTypeCode**: Transaction Type Code
+            - **TransactionDate**: Transaction Date
+            - **ItemId**: Item Id
+            - **TransactionQty**: Transaction Qty
+            - **FromSubInvCode**: From SubInv Code
+            - **ToSubInvCode**: To SubInv Code
+
+            **lz_item_onhand**
+            - **InventoryItemId**: Inventory Item Id
+            - **SubInventoryCode**: SubInventory Code
+            - **OnHandQuantity**: OnHand Quantity
+            - **LastUpdateDate**: Last Update Date
+            """
         else:
             columns_description = "No columns available."
     
@@ -313,5 +357,6 @@ def get_system_prompt(department):
 
 if __name__ == "__main__":
     st.header("Prompt Engineering for Lagozon")
-    department = st.selectbox("Select department:", ["Sales", "HR", "customer", "Finance", "Medical"])
+    #Added Manufacturing by Aruna on 11/06
+    department = st.selectbox("Select department:", ["Sales", "HR", "customer", "Finance", "Medical", "Manufacturing"])
     st.markdown(get_system_prompt(department))
