@@ -86,8 +86,8 @@ with col1:
 with col2:
     st.title("LAGOZON TECHNOLOGIES PVT. LTD.")
 
-
-departments = ["Sales", "HR", "customer", "Finance", "Medical"]
+#Added Manufacturing by Aruna on 11/06
+departments = ["Sales", "HR", "customer", "Finance", "Medical","Manufacturing"]
 selected_department = st.selectbox("Select department:", departments)
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 client = OpenAI(api_key=OPENAI_API_KEY)
